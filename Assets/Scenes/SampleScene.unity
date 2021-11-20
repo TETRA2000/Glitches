@@ -280,6 +280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb8413fad28a949f6957485a3f5f3d18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fireball: {fileID: 1185126844009207970, guid: 1bbd6e4033e2449f7a952508a226c93c, type: 3}
   moveSpeed: 10
 --- !u!50 &765192490
 Rigidbody2D:
