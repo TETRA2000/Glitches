@@ -13,6 +13,8 @@ public class EnemyManager : MonoBehaviour
 
     public GameObject player;
 
+    public Transform[] spawonPoints;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +29,9 @@ public class EnemyManager : MonoBehaviour
         {
             var enemy = Instantiate(enemyGameObject);
             enemy.GetComponent<Enemy>().player = player;
+
+            var tf = spawonPoints[Random.Range(0, spawonPoints.Length - 1)];
+            enemy.gameObject.transform.position = tf.position;
 
             lastSpawnTime = Time.timeSinceLevelLoad;
             nextSpawnInteval = GetNextSpawnInterval();

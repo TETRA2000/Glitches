@@ -26,6 +26,7 @@ public class Ammo : MonoBehaviour
         if(collision.gameObject.layer == enemyLayer)
         {
             collision.gameObject.GetComponent<Enemy>().Damage();
+            Destroy(gameObject);
         }
     }
 
