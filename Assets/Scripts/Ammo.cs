@@ -8,6 +8,8 @@ public class Ammo : MonoBehaviour
     private float speed = 10f;
     private int enemyLayer;
 
+    public GameObject ExplosionPrefav;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +27,9 @@ public class Ammo : MonoBehaviour
     {
         if(collision.gameObject.layer == enemyLayer)
         {
+            var explosion = Instantiate(ExplosionPrefav);
+            Destroy(explosion, 2.0f);
+
             collision.gameObject.GetComponent<Enemy>().Damage();
             Destroy(gameObject);
         }
