@@ -10,9 +10,12 @@ public class Player : MonoBehaviour
 
     public Vector2 spawnPointRangeAbs;
 
+    private AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -25,6 +28,8 @@ public class Player : MonoBehaviour
 
         if(Input.GetKeyDown("space"))
         {
+            audioSource.Play();
+
             foreach(var muzzle in muzzles )
             {
                 var fire = Instantiate(fireball);
@@ -35,8 +40,6 @@ public class Player : MonoBehaviour
 
     private void OnBecameInvisible()
     {
-        Debug.Log("Player is invisible!!");
-
         ResetPlayerPosition();
     }
 
