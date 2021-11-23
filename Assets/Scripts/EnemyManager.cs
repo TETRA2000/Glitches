@@ -30,7 +30,7 @@ public class EnemyManager : MonoBehaviour
             var enemy = Instantiate(enemyGameObject);
             enemy.GetComponent<Enemy>().player = player;
 
-            var tf = spawonPoints[Random.Range(0, spawonPoints.Length - 1)];
+            var tf = spawonPoints[Random.Range(0, spawonPoints.Length)];
             enemy.gameObject.transform.position = tf.position;
 
             lastSpawnTime = Time.timeSinceLevelLoad;
