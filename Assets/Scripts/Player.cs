@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
     public Transform[] muzzles;
     public float moveSpeed = 10f;
 
+    public Vector2 spawnPointRangeAbs;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,5 +31,22 @@ public class Player : MonoBehaviour
                 fire.transform.position = muzzle.position;
             }
         }
+    }
+
+    private void OnBecameInvisible()
+    {
+        Debug.Log("Player is invisible!!");
+
+        ResetPlayerPosition();
+    }
+
+    private void ResetPlayerPosition()
+    {
+        // TODO: play some fancy animation.
+
+        var x = Random.Range(-1 * spawnPointRangeAbs.x, spawnPointRangeAbs.x);
+        var y = Random.Range(-1 * spawnPointRangeAbs.y, spawnPointRangeAbs.y);
+
+        transform.position = new Vector3(x, y, 0);
     }
 }

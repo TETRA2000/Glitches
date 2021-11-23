@@ -358,6 +358,7 @@ MonoBehaviour:
   - {fileID: 1105905635}
   - {fileID: 234633263}
   moveSpeed: 10
+  spawnPointRangeAbs: {x: 4, y: 4}
 --- !u!50 &765192490
 Rigidbody2D:
   serializedVersion: 4
