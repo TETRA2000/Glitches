@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Player : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class Player : MonoBehaviour
     public Vector2 spawnPointRangeAbs;
 
     private AudioSource audioSource;
+
+    public UnityEvent glitchEvent;
 
     // Start is called before the first frame update
     void Start()
@@ -45,7 +48,7 @@ public class Player : MonoBehaviour
 
     private void ResetPlayerPosition()
     {
-        // TODO: play some fancy animation.
+        glitchEvent.Invoke();
 
         var x = Random.Range(-1 * spawnPointRangeAbs.x, spawnPointRangeAbs.x);
         var y = Random.Range(-1 * spawnPointRangeAbs.y, spawnPointRangeAbs.y);

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
@@ -15,12 +16,16 @@ public class PostProcessingManager : MonoBehaviour
 
     private Vignette vignette;
 
+    private float lastGlitchTransitonTime;
+    private enum GlitchState { None, Step1, Step2, Step3 };
+    private GlitchState glitchState;
+
     // Start is called before the first frame update
     void Start()
     {
         volume = GetComponent<Volume>();
 
-        lastGlitchTime = Time.timeSinceLevelLoad;
+        lastGlitchTime = Time.time;
         nextGlitchInteval = NextGlitchInterval();
 
         volume.profile.TryGet<Vignette>(out vignette);
@@ -29,16 +34,56 @@ public class PostProcessingManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Time.timeSinceLevelLoad - lastGlitchTime > nextGlitchInteval)
-        {
-            SwitchGlitchMode();
+        UpdateGlitchState();
 
-            lastGlitchTime = Time.timeSinceLevelLoad;
+        //SwitchToRandomGlitch();
+    }
+
+    private void SwitchToRandomGlitch()
+    {
+        if (Time.time - lastGlitchTime > nextGlitchInteval)
+        {
+            SwitchRandomGlitchMode();
+
+            lastGlitchTime = Time.time;
             nextGlitchInteval = NextGlitchInterval();
         }
     }
 
-    private void SwitchGlitchMode()
+    public void TriggerGlitch()
+    {
+        Debug.Log("TriggerGlitch");
+
+        lastGlitchTransitonTime = Time.time;
+        glitchState = GlitchState.Step1;
+    }
+
+    private void UpdateGlitchState()
+    {
+        if (glitchState != GlitchState.None && Time.time - lastGlitchTransitonTime > 0.1f)
+        {
+            lastGlitchTransitonTime = Time.time;
+
+            switch (glitchState)
+            {
+                case GlitchState.Step1:
+                    HeavyVignette();
+                    glitchState = GlitchState.Step2;
+                    break;
+                case GlitchState.Step2:
+                    MediumVignette();
+                    glitchState = GlitchState.Step3;
+                    break;
+                case GlitchState.Step3:
+                    ResetGlitch();
+                    glitchState = GlitchState.None;
+                    break;
+            }
+        }
+    }
+
+
+    private void SwitchRandomGlitchMode()
     {
         var mode = Random.Range(0, 2);
 
