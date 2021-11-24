@@ -8,13 +8,10 @@ using UnityEngine.Rendering.Universal;
 public class PostProcessingManager : MonoBehaviour
 {
     private Volume volume;
-    public float minGlitchInterval;
-    public float maxGlitchInterval;
-
-    private float nextGlitchInteval;
-    private float lastGlitchTime;
 
     private Vignette vignette;
+    private LensDistortion lensDistortion;
+    private ChromaticAberration chromaticAberration;
 
     private float lastGlitchTransitonTime;
     private enum GlitchState { None, Step1, Step2, Step3 };
@@ -25,29 +22,15 @@ public class PostProcessingManager : MonoBehaviour
     {
         volume = GetComponent<Volume>();
 
-        lastGlitchTime = Time.time;
-        nextGlitchInteval = NextGlitchInterval();
-
         volume.profile.TryGet<Vignette>(out vignette);
+        volume.profile.TryGet<LensDistortion>(out lensDistortion);
+        volume.profile.TryGet<ChromaticAberration>(out chromaticAberration);
     }
 
     // Update is called once per frame
     void Update()
     {
         UpdateGlitchState();
-
-        //SwitchToRandomGlitch();
-    }
-
-    private void SwitchToRandomGlitch()
-    {
-        if (Time.time - lastGlitchTime > nextGlitchInteval)
-        {
-            SwitchRandomGlitchMode();
-
-            lastGlitchTime = Time.time;
-            nextGlitchInteval = NextGlitchInterval();
-        }
     }
 
     public void TriggerGlitch()
@@ -67,48 +50,62 @@ public class PostProcessingManager : MonoBehaviour
             switch (glitchState)
             {
                 case GlitchState.Step1:
-                    HeavyVignette();
+                    //HeavyVignette();
+                    MediumChromaticAberration();
+                    ZoomedInLensDistortion();
                     glitchState = GlitchState.Step2;
                     break;
                 case GlitchState.Step2:
-                    MediumVignette();
+                    //MediumVignette();
+                    HeavyChromaticAberration();
                     glitchState = GlitchState.Step3;
                     break;
                 case GlitchState.Step3:
-                    ResetGlitch();
+                    //ResetVignette();
+                    ResetLensDistortion();
+                    ResetChromaticAberration();
                     glitchState = GlitchState.None;
                     break;
             }
         }
     }
 
-
-    private void SwitchRandomGlitchMode()
+    private void ResetChromaticAberration()
     {
-        var mode = Random.Range(0, 2);
-
-        ResetGlitch();
-
-        switch (mode)
-        {
-            case 0:
-                MediumVignette();
-                break;
-            case 1:
-                HeavyVignette();
-                break;
-            default:
-                // Do nothing
-                break;
-        }
+        chromaticAberration.intensity.value = 0.35f;
+        chromaticAberration.active = true;
     }
 
-    private float NextGlitchInterval()
+    private void MediumChromaticAberration()
     {
-        return Random.Range(minGlitchInterval, maxGlitchInterval);
+        chromaticAberration.intensity.value = 0.75f;
+        chromaticAberration.active = true;
     }
 
-    private void ResetGlitch()
+    private void HeavyChromaticAberration()
+    {
+        chromaticAberration.intensity.value = 1f;
+        chromaticAberration.active = true;
+    }
+
+    private void ResetLensDistortion()
+    {
+        lensDistortion.intensity.value = -0.5f;
+        lensDistortion.xMultiplier.value = 0.5f;
+        lensDistortion.yMultiplier.value = 0.5f;
+        lensDistortion.center.value = new Vector2(0.5f, 0.5f);
+        lensDistortion.scale.value = 1.18f;
+        lensDistortion.active = true;
+    }
+
+    private void ZoomedInLensDistortion()
+    {
+        ResetLensDistortion();
+        lensDistortion.scale.value = 3.0f;
+    }
+
+
+    private void ResetVignette()
     {
         Debug.Log("ResetGlitch");
 
