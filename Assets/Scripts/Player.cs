@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -15,10 +16,14 @@ public class Player : MonoBehaviour
 
     public UnityEvent glitchEvent;
 
+    private int enemyLayer;
+
     // Start is called before the first frame update
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
+
+        enemyLayer = LayerMask.NameToLayer("Enemy");
     }
 
     // Update is called once per frame
@@ -55,4 +60,13 @@ public class Player : MonoBehaviour
 
         transform.position = new Vector3(x, y, 0);
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == enemyLayer)
+        {
+            SceneManager.LoadScene("Assets/Scenes/GameOverScene.unity");
+        }
+    }
+
 }
