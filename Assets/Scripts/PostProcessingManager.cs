@@ -95,13 +95,13 @@ public class PostProcessingManager : MonoBehaviour
         lensDistortion.yMultiplier.value = 0.5f;
         lensDistortion.center.value = new Vector2(0.5f, 0.5f);
         lensDistortion.scale.value = 1.18f;
-        lensDistortion.active = true;
+        lensDistortion.active = false;
     }
 
     private void ZoomedInLensDistortion()
     {
-        ResetLensDistortion();
         lensDistortion.scale.value = 3.0f;
+        lensDistortion.active = true;
     }
 
 

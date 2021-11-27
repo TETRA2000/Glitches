@@ -784,9 +784,9 @@ MonoBehaviour:
   glitchEvent:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1741086496}
-        m_TargetAssemblyTypeName: PostProcessingManager, Assembly-CSharp
-        m_MethodName: TriggerGlitch
+      - m_Target: {fileID: 1298767071529300104, guid: ccd90748bb46a4a52861484c36bf59c7, type: 3}
+        m_TargetAssemblyTypeName: Enemy, Assembly-CSharp
+        m_MethodName: OnGlitch
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

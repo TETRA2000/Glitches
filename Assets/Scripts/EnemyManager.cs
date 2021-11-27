@@ -28,7 +28,9 @@ public class EnemyManager : MonoBehaviour
         if (Time.timeSinceLevelLoad - lastSpawnTime > nextSpawnInteval)
         {
             var enemy = Instantiate(enemyGameObject);
-            enemy.GetComponent<Enemy>().player = player;
+            var enemyScript = enemy.GetComponent<Enemy>();
+            enemyScript.player = player;
+            player.GetComponent<Player>().glitchEvent.AddListener(enemyScript.OnGlitch);
 
             var tf = spawonPoints[Random.Range(0, spawonPoints.Length)];
             enemy.gameObject.transform.position = tf.position;
