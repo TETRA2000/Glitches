@@ -35,8 +35,6 @@ public class PostProcessingManager : MonoBehaviour
 
     public void TriggerGlitch()
     {
-        Debug.Log("TriggerGlitch");
-
         lastGlitchTransitonTime = Time.time;
         glitchState = GlitchState.Step1;
     }
