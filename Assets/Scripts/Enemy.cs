@@ -40,7 +40,7 @@ public class Enemy : MonoBehaviour
                 y = Random.Range(pos.y - 3f, pos.y + 3f);
 
                 count++;
-            } while (!(count > 10 || Vector3.Distance(pos, player.transform.position) > 1f));
+            } while (!(count > 10 || Vector3.Distance(pos, player.transform.position) > 3f));
 
             transform.position = new Vector3(x, y, 0);
         }

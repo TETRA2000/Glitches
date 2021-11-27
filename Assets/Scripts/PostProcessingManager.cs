@@ -90,11 +90,11 @@ public class PostProcessingManager : MonoBehaviour
 
     private void ResetLensDistortion()
     {
-        lensDistortion.intensity.value = -0.5f;
-        lensDistortion.xMultiplier.value = 0.5f;
-        lensDistortion.yMultiplier.value = 0.5f;
-        lensDistortion.center.value = new Vector2(0.5f, 0.5f);
-        lensDistortion.scale.value = 1.18f;
+        //lensDistortion.intensity.value = -0.5f;
+        //lensDistortion.xMultiplier.value = 0.5f;
+        //lensDistortion.yMultiplier.value = 0.5f;
+        //lensDistortion.center.value = new Vector2(0.5f, 0.5f);
+        //lensDistortion.scale.value = 1.18f;
         lensDistortion.active = false;
     }
 
