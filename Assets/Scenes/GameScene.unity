@@ -780,7 +780,7 @@ MonoBehaviour:
   - {fileID: 1105905635}
   - {fileID: 234633263}
   moveSpeed: 10
-  spawnPointRangeAbs: {x: 4, y: 4}
+  spawnPointRangeAbs: {x: 3, y: 3}
   glitchEvent:
     m_PersistentCalls:
       m_Calls:

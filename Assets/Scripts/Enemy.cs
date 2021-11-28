@@ -31,18 +31,17 @@ public class Enemy : MonoBehaviour
         if (player != null)
         {
             var pos = transform.position;
-            float x, y;
 
             int count = 0;
             do
             {
-                x = Random.Range(pos.x - 3f, pos.x + 3f);
-                y = Random.Range(pos.y - 3f, pos.y + 3f);
+                pos.x = Random.Range(pos.x - 3f, pos.x + 3f);
+                pos.y = Random.Range(pos.y - 3f, pos.y + 3f);
 
                 count++;
-            } while (!(count > 10 || Vector3.Distance(pos, player.transform.position) > 3f));
+            } while (!(count > 10 || Vector3.Distance(pos, player.transform.position) > 4f));
 
-            transform.position = new Vector3(x, y, 0);
+            transform.position = pos;
         }
     }
 }

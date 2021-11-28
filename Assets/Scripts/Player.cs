@@ -53,12 +53,12 @@ public class Player : MonoBehaviour
 
     private void ResetPlayerPosition()
     {
-        glitchEvent.Invoke();
-
         var x = Random.Range(-1 * spawnPointRangeAbs.x, spawnPointRangeAbs.x);
         var y = Random.Range(-1 * spawnPointRangeAbs.y, spawnPointRangeAbs.y);
 
         transform.position = new Vector3(x, y, 0);
+
+        glitchEvent.Invoke();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
