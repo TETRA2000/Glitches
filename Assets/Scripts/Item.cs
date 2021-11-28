@@ -22,7 +22,12 @@ public class Item : MonoBehaviour
     void Start()
     {
         // TODO: refactor
-        glitchEvent = GameObject.Find("Player").GetComponent<Player>().glitchEvent;
+        var player = GameObject.Find("Player");
+        if (player != null)
+        {
+            glitchEvent = player.GetComponent<Player>().glitchEvent;
+        }
+        
 
         playerLayer = LayerMask.NameToLayer("Player");
         ammoLayer = LayerMask.NameToLayer("Ammo");

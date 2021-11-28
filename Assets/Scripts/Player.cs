@@ -14,9 +14,13 @@ public class Player : MonoBehaviour
 
     private AudioSource audioSource;
 
+    public GameObject explosionPrefab;
+
     public UnityEvent glitchEvent;
 
     private int enemyLayer;
+
+    private bool died = false;
 
     // Start is called before the first frame update
     void Start()
@@ -29,26 +33,29 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float horizontalInput = -1 * Input.GetAxis("Horizontal");
-        float verticalInput = -1 * Input.GetAxis("Vertical");
-
-        transform.Translate(new Vector3(horizontalInput, verticalInput, 0) * moveSpeed * Time.deltaTime);
-
-        if(Input.GetKeyDown("space"))
+        if(!died)
         {
-            audioSource.Play();
+            float horizontalInput = -1 * Input.GetAxis("Horizontal");
+            float verticalInput = -1 * Input.GetAxis("Vertical");
 
-            foreach(var muzzle in muzzles )
+            transform.Translate(new Vector3(horizontalInput, verticalInput, 0) * moveSpeed * Time.deltaTime);
+
+            if (Input.GetKeyDown("space"))
             {
-                var fire = Instantiate(fireball);
-                fire.transform.position = muzzle.position;
+                audioSource.Play();
+
+                foreach (var muzzle in muzzles)
+                {
+                    var fire = Instantiate(fireball);
+                    fire.transform.position = muzzle.position;
+                }
             }
         }
     }
 
     private void OnBecameInvisible()
     {
-        ResetPlayerPosition();
+        if(!died) ResetPlayerPosition();
     }
 
     private void ResetPlayerPosition()
@@ -65,8 +72,20 @@ public class Player : MonoBehaviour
     {
         if (collision.gameObject.layer == enemyLayer)
         {
-            SceneManager.LoadScene("Assets/Scenes/GameOverScene.unity");
+            died = true;
+
+            var explosion = Instantiate(explosionPrefab);
+            explosion.transform.position = transform.position;
+
+            gameObject.SetActive(false);
+            Destroy(explosion, 0.5f);
+            Invoke("MoveToGameOverScene", 0.5f);
         }
+    }
+
+    private void MoveToGameOverScene()
+    {
+        SceneManager.LoadScene("Assets/Scenes/GameOverScene.unity");
     }
 
 }
