@@ -11,8 +11,8 @@ TagManager:
   - Enemy
   - Water
   - UI
-  - 
-  - 
+  - Player
+  - Ammo
   - 
   - 
   - 
@@ -52,4 +52,7 @@ TagManager:
     locked: 0
   - name: Ammo
     uniqueID: 1942299023
+    locked: 0
+  - name: Item
+    uniqueID: 663700519
     locked: 0
