@@ -1138,8 +1138,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyGameObject: {fileID: 8446229901137038219, guid: ccd90748bb46a4a52861484c36bf59c7, type: 3}
-  minSpawnInterval: 1
-  maxSpawnInterval: 5
+  minSpawnInterval: 0.3
+  maxSpawnInterval: 3
   player: {fileID: 765192486}
   spawonPoints:
   - {fileID: 1802009949}
