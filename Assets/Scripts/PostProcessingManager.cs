@@ -17,6 +17,8 @@ public class PostProcessingManager : MonoBehaviour
     private enum GlitchState { None, Step1, Step2, Step3 };
     private GlitchState glitchState;
 
+    private AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +27,8 @@ public class PostProcessingManager : MonoBehaviour
         volume.profile.TryGet<Vignette>(out vignette);
         volume.profile.TryGet<LensDistortion>(out lensDistortion);
         volume.profile.TryGet<ChromaticAberration>(out chromaticAberration);
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -37,6 +41,8 @@ public class PostProcessingManager : MonoBehaviour
     {
         lastGlitchTransitonTime = Time.time;
         glitchState = GlitchState.Step1;
+
+        audioSource.Play();
     }
 
     private void UpdateGlitchState()
