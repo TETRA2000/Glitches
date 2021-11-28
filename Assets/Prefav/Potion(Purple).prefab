@@ -164,3 +164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc2c835c7a1344856bfa6e4786d0d2c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  glitchMode: 0
+  disableGunsEvent:
+    m_PersistentCalls:
+      m_Calls: []

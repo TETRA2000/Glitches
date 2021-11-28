@@ -5,6 +5,7 @@ using UnityEngine.Events;
 
 public class Item : MonoBehaviour
 {
+    private Player playerScript;
     private int playerLayer, ammoLayer;
     private UnityEvent glitchEvent;
 
@@ -25,7 +26,8 @@ public class Item : MonoBehaviour
         var player = GameObject.Find("Player");
         if (player != null)
         {
-            glitchEvent = player.GetComponent<Player>().glitchEvent;
+            playerScript = player.GetComponent<Player>();
+            glitchEvent = playerScript.glitchEvent;
         }
         
 
@@ -70,6 +72,7 @@ public class Item : MonoBehaviour
                 glitchEvent.Invoke();
                 break;
             case GlitchMode.DisableGuns:
+                playerScript.OnDisableGunEvent();
                 break;
         }
     }

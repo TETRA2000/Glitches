@@ -22,6 +22,10 @@ public class Player : MonoBehaviour
 
     private bool died = false;
 
+    private bool gunsDisabled = false;
+
+    public GameObject inactiveGunSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,12 +46,20 @@ public class Player : MonoBehaviour
 
             if (Input.GetKeyDown("space"))
             {
-                audioSource.Play();
-
-                foreach (var muzzle in muzzles)
+                if(gunsDisabled)
                 {
-                    var fire = Instantiate(fireball);
-                    fire.transform.position = muzzle.position;
+                    // TODO: refactor
+                    var obj = Instantiate(inactiveGunSound);
+                    Destroy(obj, 4f);
+                } else
+                {
+                    audioSource.Play();
+
+                    foreach (var muzzle in muzzles)
+                    {
+                        var fire = Instantiate(fireball);
+                        fire.transform.position = muzzle.position;
+                    }
                 }
             }
         }
@@ -88,4 +100,14 @@ public class Player : MonoBehaviour
         SceneManager.LoadScene("Assets/Scenes/GameOverScene.unity");
     }
 
+    public void OnDisableGunEvent()
+    {
+        gunsDisabled = true;
+        Invoke("EnableGuns", 3f);
+    }
+
+    private void EnableGuns()
+    {
+        gunsDisabled = false;
+    }
 }

@@ -165,3 +165,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   glitchMode: 1
+  disableGunsEvent:
+    m_PersistentCalls:
+      m_Calls: []
