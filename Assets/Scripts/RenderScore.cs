@@ -3,22 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameManager : MonoBehaviour
+public class RenderScore : MonoBehaviour
 {
+    private Text scoreText;
+
     // Start is called before the first frame update
     void Start()
     {
-        GlobalVariable.scores = 0;
+        scoreText = GetComponent<Text>();
+        UpdateScoreText();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        UpdateScoreText();
     }
 
-    public void OnEnemyKilled()
+    private void UpdateScoreText()
     {
-        GlobalVariable.scores += 10;
+        scoreText.text = "SCORES: " + GlobalVariable.scores;
     }
 }

@@ -9,9 +9,13 @@ public class Enemy : MonoBehaviour
     public float minMoveSpeed;
     public float maxMoveSpeed;
 
+    public GameObject gameManager;
+    private GameManager gameManagerScript;
+
     // Start is called before the first frame update
     void Start()
     {
+        gameManagerScript = gameManager.GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -23,6 +27,8 @@ public class Enemy : MonoBehaviour
 
     public void Damage()
     {
+        gameManagerScript.OnEnemyKilled();
+
         Destroy(gameObject);
     }
 

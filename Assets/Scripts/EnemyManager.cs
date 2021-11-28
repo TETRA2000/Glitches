@@ -13,6 +13,8 @@ public class EnemyManager : MonoBehaviour
 
     public GameObject player;
 
+    public GameObject gameManager;
+
     public Transform[] spawonPoints;
 
     // Start is called before the first frame update
@@ -30,6 +32,7 @@ public class EnemyManager : MonoBehaviour
             var enemy = Instantiate(enemyGameObject);
             var enemyScript = enemy.GetComponent<Enemy>();
             enemyScript.player = player;
+            enemyScript.gameManager = gameManager;
             player.GetComponent<Player>().glitchEvent.AddListener(enemyScript.OnGlitch);
 
             var tf = spawonPoints[Random.Range(0, spawonPoints.Length)];
